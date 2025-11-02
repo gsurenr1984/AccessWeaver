@@ -1,4 +1,4 @@
-package com.sitha.accessweaver;
+package com.sitha;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -17,7 +17,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="users")
+@Table(name="SIT_USER")
 public class User implements UserDetails {
 	
 	/**

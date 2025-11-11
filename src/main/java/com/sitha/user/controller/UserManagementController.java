@@ -49,7 +49,7 @@ public class UserManagementController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<?> createUserByAnotherUser(UserRequest userProfileDetail) {
+	public ResponseEntity<?> createUserByAnotherUser(@RequestBody UserRequest userProfileDetail) {
 		UserDetail userDetail = umService.getUserProfileDetails(userProfileDetail);
 		if (userDetail != null) {
 			return ResponseEntity.badRequest().body("Invalid User Name");
@@ -62,7 +62,12 @@ public class UserManagementController {
 	}
 	
 	@PostMapping("/verify")
-	public ResponseEntity<?> verify(UserRequest userProfileDetail) {
+	public ResponseEntity<?> verify(@RequestBody UserRequest userProfileDetail) {
+		if(!StringUtils.hasLength(userProfileDetail.getUserName()) ||
+				!StringUtils.hasLength(userProfileDetail.getEmail()) ||
+						!StringUtils.hasLength(userProfileDetail.getPhoneNumber())) {
+			return ResponseEntity.badRequest().build();
+		}
 		UserDetail userDetail = umService.getUserProfileDetails(userProfileDetail);
 		if (userDetail == null || !StringUtils.hasLength(userDetail.getUsername())) {
 			return ResponseEntity.ok("Valid");
@@ -72,7 +77,7 @@ public class UserManagementController {
 	}
 
 	@PutMapping("/delete")
-	public ResponseEntity<?> deleteUser(UserRequest user) {
+	public ResponseEntity<?> deleteUser(@RequestBody UserRequest user) {
 		UserDetail updatedUser = umService.getUserProfileDetails(user);
 		if (updatedUser == null) {
 			return ResponseEntity.badRequest().body("Invalid User Name");

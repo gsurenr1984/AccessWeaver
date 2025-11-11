@@ -6,6 +6,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +33,7 @@ public class UserManagementController {
 	@PostMapping("/register")
 	public ResponseEntity<?> registerSelfUser(@RequestBody UserRequest userProfileDetail) {
 		UserDetail userDetail = umService.getUserProfileDetails(userProfileDetail);
-		if (userDetail != null) {
+		if (userDetail != null && !StringUtils.hasLength(userDetail.getUsername())) {
 			return ResponseEntity.badRequest().body("Invalid User Name");
 		}
 		User user = umService.saveUser(userProfileDetail);
@@ -58,6 +59,16 @@ public class UserManagementController {
 		userDetail.setCreatedBy(userDetail.getUsername());
 		userDetail = umService.saveUserProfile(userDetail);
 		return ResponseEntity.ok(userDetail);
+	}
+	
+	@PostMapping("/verify")
+	public ResponseEntity<?> verify(UserRequest userProfileDetail) {
+		UserDetail userDetail = umService.getUserProfileDetails(userProfileDetail);
+		if (userDetail == null || !StringUtils.hasLength(userDetail.getUsername())) {
+			return ResponseEntity.ok("Valid");
+		}
+	
+		return ResponseEntity.badRequest().build();
 	}
 
 	@PutMapping("/delete")

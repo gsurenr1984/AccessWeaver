@@ -63,16 +63,14 @@ public class UserManagementController {
 	
 	@PostMapping("/verify")
 	public ResponseEntity<?> verify(@RequestBody UserRequest userProfileDetail) {
-		if(!StringUtils.hasLength(userProfileDetail.getUserName()) ||
-				!StringUtils.hasLength(userProfileDetail.getEmail()) ||
-						!StringUtils.hasLength(userProfileDetail.getPhoneNumber())) {
-			return ResponseEntity.badRequest().build();
+		if(StringUtils.hasLength(userProfileDetail.getUserName()) ||
+				StringUtils.hasLength(userProfileDetail.getEmail()) ||
+						StringUtils.hasLength(userProfileDetail.getPhoneNumber())) {
+			UserDetail userDetail = umService.getUserProfileDetails(userProfileDetail);
+			if (userDetail == null || !StringUtils.hasLength(userDetail.getUsername())) {
+				return ResponseEntity.ok("Valid");
+			}
 		}
-		UserDetail userDetail = umService.getUserProfileDetails(userProfileDetail);
-		if (userDetail == null || !StringUtils.hasLength(userDetail.getUsername())) {
-			return ResponseEntity.ok("Valid");
-		}
-	
 		return ResponseEntity.badRequest().build();
 	}
 

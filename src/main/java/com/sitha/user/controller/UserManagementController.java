@@ -86,7 +86,8 @@ public class UserManagementController {
 		updatedUser = umService.saveUserProfile(updatedUser);
 		return ResponseEntity.ok(updatedUser);
 	}
-
+	
+	
 	private UserDetail prepareUserDetailsObj(UserRequest userProfileDetail) {
 		UserDetail ud = new UserDetail();
 		ud.setActive(userProfileDetail.isActive());

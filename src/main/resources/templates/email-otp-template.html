@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      padding-bottom: 20px;
+    }
+    .header img {
+      height: 50px;
+    }
+    .otp-box {
+      background-color: #f0f4ff;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+    .footer {
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="cid:companyLogo" alt="Company Logo" height="50">
+      <h2>Secure Access Verification</h2>
+    </div>
+    <p>Dear Account Holder,</p>
+    <p>Your One-Time Password (OTP) is:</p>
+    <div class="otp-box">{{otp}}</div>
+    <p>This OTP is valid for the next 10 minutes. Please do not share it with anyone.</p>
+    <div class="footer">
+      If you did not request this, please ignore this email or contact support.
+    </div>
+  </div>
+</body>
+</html>

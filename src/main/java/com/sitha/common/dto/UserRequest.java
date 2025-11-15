@@ -39,4 +39,5 @@ public class UserRequest {
     private String comPhoneNumber;
     private String notes;
     private Long comId;
+    private String otp;
 }

@@ -1,6 +1,6 @@
 package com.sitha.user.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,9 +28,18 @@ public class UserManagementService {
 	}
 	
 	public UserDetail getUserProfileDetails(UserRequest user) {
-		Optional<UserDetail> userDetail = userDetailService.findByUniqueUser(user.getUserName(), user.getEmail(), user.getPhoneNumber());
-		if(userDetail.isPresent()) {
-			return userDetail.get();
+		List<UserDetail> userDetail = userDetailService.findByUniqueUser(user.getUserName(), user.getEmail(), user.getPhoneNumber());
+		if(!userDetail.isEmpty() && userDetail.size() ==1) {
+			return userDetail.get(0);
+		}
+		
+		return null;
+	}
+	
+	public UserDetail findUserWithInputField(String userInput) {
+		List<UserDetail> userDetail = userDetailService.findByUniqueUser(userInput, userInput, userInput);
+		if(!userDetail.isEmpty() && userDetail.size() ==1) {
+			return userDetail.get(0);
 		}
 		
 		return null;
